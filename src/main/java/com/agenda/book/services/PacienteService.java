@@ -25,15 +25,16 @@ public class PacienteService {
 
 
     // Salva o objeto Paciente
-    public Paciente save(PacienteDTO dto){
+    public Paciente save(PacienteDTO dto) throws ExceptionCustomError{
         // Inicia o objeto paciente
         Paciente p = new Paciente(dto);
 
         // Faz uma busca no banco para saber se o usuario existe
-       var buscaId = this.pacienteRepository.findById(p.idPaciente);
-       if(buscaId.isPresent()){
+       var buscaId = this.pacienteRepository.findByCpfPaciente(p.getCpfPaciente());
+       if(buscaId != null && buscaId.getCpfPaciente().equals(dto.cpfPaciente())){
            // Se o paciente existir retorna erro de procacemento
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+           //throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+           throw new ExceptionCustomError("Já existe um cadastro com esse CPF", 422);
        }else{
             // Caso nao exista faz o insert no banco
             return this.pacienteRepository.save(p);
