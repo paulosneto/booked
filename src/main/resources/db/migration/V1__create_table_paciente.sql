@@ -1,5 +1,5 @@
 CREATE TABLE PACIENTE_TB(
-    idPaciente PRIMARY KEY,
+    idPaciente serial PRIMARY KEY,
     nomePaciente VARCHAR(200),
     cpfPaciente VARCHAR(11),
     emailPaciente VARCHAR(200),
