@@ -4,6 +4,7 @@ import com.agenda.book.domains.Paciente;
 import com.agenda.book.dtos.PacienteDTO;
 import com.agenda.book.services.PacienteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,12 @@ import java.util.List;
 public class PacienteController {
 
     //Instancia da classe Service
+    @Autowired
     private PacienteService service;
+
+    public PacienteController(PacienteService service){
+        this.service = service;
+    }
 
     @PostMapping
     public ResponseEntity<Paciente> createPaciente(@RequestBody PacienteDTO dto){
@@ -37,5 +43,13 @@ public class PacienteController {
        var paciente = this.service.findById(id);
 
        return ResponseEntity.ok().body(paciente);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Paciente> delete(@PathVariable("id") Long id){
+        this.service.deletePaciente(id);
+        return ResponseEntity.noContent().build();
+
+
     }
 }
