@@ -17,15 +17,15 @@ public class Paciente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long idPaciente;
+    private Long idPaciente;
     @Column(name = "nomePaciente")
-    public String nomePaciente;
-    @Column(name = "cpfPaciente")
-    public String cpfPaciente;
+    private String nomePaciente;
+    @Column(name = "cpfPaciente", unique = true)
+    private String cpfPaciente;
     @Column(name = "emailPaciente")
-    public String emailPaciente;
+    private String emailPaciente;
     @Column(name = "telefonePaciente")
-    public String telefonePaciente;
+    private String telefonePaciente;
 
     public Paciente(PacienteDTO dto){
         this.nomePaciente = dto.nomePaciente();
