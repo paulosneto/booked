@@ -24,6 +24,7 @@ public class AgendaController {
     public ResponseEntity<Agenda> createAgenda(@RequestBody AgendaDTO dto){
 
         Agenda agenda = this.service.save(dto);
+
         return ResponseEntity.ok(agenda);
     }
 
@@ -33,11 +34,13 @@ public class AgendaController {
     }
 
     @GetMapping("/{dataCriacao}")
-    public ResponseEntity<List<Agenda>> findByDataCriacao(@PathVariable("dataCriacao") LocalDateTime dataCriacao){
+    public ResponseEntity<List<Agenda>> findByDataCriacao(@PathVariable("dataCriacao") LocalDateTime dataCriacao, String cpfPaciente){
        List<Agenda> lt = this.service.findByDataCriacao(dataCriacao);
 
        return ResponseEntity.ok().body(lt);
     }
+
+
 
 
 
