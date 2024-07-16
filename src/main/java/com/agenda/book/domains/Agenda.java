@@ -26,8 +26,8 @@ public class Agenda {
     @Column(name = "descricao")
     private String descricao;
 
-    @Column(name = "data_hora")
-    private LocalDateTime dataHora;
+    @Column(name = "data_horaAgendamento")
+    private LocalDateTime dataHoraAgendamento;
 
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
@@ -36,11 +36,14 @@ public class Agenda {
     @JoinColumn(name = "id_paciente")
     private Paciente paciente;
 
+    //private String cpfPaciente;
 
     public Agenda(AgendaDTO dto){
         this.descricao = dto.descricao();
-        this.dataHora = dto.dataHora();
-        this.dataCriacao = dto.dataCriacao();
+        this.dataHoraAgendamento = dto.dataHoraAgendamento();
+        //this.cpfPaciente = dto.cpfPaciente();
+        //this.paciente.getCpfPaciente() = dto.cpfPaciente();
     }
+
 
 }
