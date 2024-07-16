@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
@@ -33,5 +33,17 @@ public class Paciente {
         this.emailPaciente = dto.emailPaciente();
         this.telefonePaciente = dto.telefonePaciente();
     }
+
+    public Paciente(Long idPaciente, String nomePaciente, String cpfPaciente, String emailPaciente, String telefonePaciente){
+        this.idPaciente = idPaciente;
+        this.nomePaciente = nomePaciente;
+        this.cpfPaciente = cpfPaciente;
+        this.emailPaciente = emailPaciente;
+        this.telefonePaciente = telefonePaciente;
+    }
+    public Paciente get(){
+        return new Paciente(idPaciente, nomePaciente, cpfPaciente, emailPaciente, telefonePaciente);
+    }
+
 
 }
