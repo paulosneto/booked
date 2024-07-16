@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +33,8 @@ public class PacienteService {
 
         // Faz uma busca no banco para saber se o usuario existe
        var buscaId = this.pacienteRepository.findByCpfPaciente(p.getCpfPaciente());
-       if(buscaId != null && buscaId.getCpfPaciente().equals(dto.cpfPaciente())){
+       //if(buscaId != null && buscaId.getCpfPaciente().equals(dto.cpfPaciente())){
+       if(buscaId.isPresent()){
            // Se o paciente existir retorna erro de procacemento
            //throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
            throw new ExceptionCustomError("Já existe um cadastro com esse CPF", 422);
@@ -44,6 +47,9 @@ public class PacienteService {
 
     // Lista todos os pacientes
     public List<Paciente> listPaciente(){
+
+        LocalDateTime lt = LocalDateTime.now();
+
         return this.pacienteRepository.findAll();
     }
 
@@ -67,7 +73,8 @@ public class PacienteService {
         Paciente paciente = null;
 
         // Se o paciente existir, faz a atualização dos dados
-        if(p.getCpfPaciente().equals(dto.cpfPaciente())){
+        //if(p.getCpfPaciente().equals(dto.cpfPaciente())){
+        if(p.isPresent()){
              paciente = new Paciente(dto);
             this.pacienteRepository.save(paciente);
         }else{
