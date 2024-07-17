@@ -1,6 +1,7 @@
 package com.agenda.book.domains;
 
 import com.agenda.book.dtos.PacienteDTO;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
+@Schema(description = "Paciente model")
 @Table(name= "paciente")
 public class Paciente {
 
@@ -20,6 +22,7 @@ public class Paciente {
     private Long idPaciente;
     @Column(name = "nomePaciente")
     private String nomePaciente;
+    @Schema(description = "Single CPF")
     @Column(name = "cpfPaciente", unique = true)
     private String cpfPaciente;
     @Column(name = "emailPaciente")
