@@ -5,7 +5,7 @@ import org.springframework.http.ProblemDetail;
 public class ExceptionCustomError extends ProblemDetailsClass  {
 
     private final String detail;
-    private int status;
+    private final int status;
 
     public ExceptionCustomError(String detail, int status) {
         this.detail = detail;
@@ -13,9 +13,9 @@ public class ExceptionCustomError extends ProblemDetailsClass  {
     }
 
     @Override
-    public ProblemDetail errorProblemDetail() {
-        var pd = ProblemDetail.forStatus(status);
-        pd.setDetail(detail);
+    public ProblemDetail errorProblemDetail(String detail, int status) {
+        var pd = ProblemDetail.forStatus(this.status);
+        pd.setDetail(this.detail);
         return pd;
     }
 }
