@@ -1,6 +1,7 @@
 package com.agenda.book.domains;
 
 import com.agenda.book.dtos.AgendaDTO;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Agenda model")
 @Table(name = "agenda")
 public class Agenda {
 
