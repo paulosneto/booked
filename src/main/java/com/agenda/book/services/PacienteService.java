@@ -27,7 +27,7 @@ public class PacienteService {
 
 
     // Salva o objeto Paciente
-    public Paciente save(PacienteDTO dto) throws ExceptionCustomError{
+    public Paciente save(PacienteDTO dto) {
         // Inicia o objeto paciente
         Paciente p = new Paciente(dto);
 
@@ -63,6 +63,15 @@ public class PacienteService {
         return p;
     }
 
+
+    // Faz busca ao paciente por CPF
+    public Paciente findByCpfPaciente(String cpf){
+        var paciente = this.pacienteRepository.findByCpfPaciente(cpf).orElseThrow(() -> new ExceptionCustomError("Paciente não encontrado", 404));
+        return paciente;
+    }
+
+
+
     // Faz o update dos dados do paciente pelo id informado
     public Paciente update(PacienteDTO dto) {
 
@@ -87,8 +96,12 @@ public class PacienteService {
     // Faz deleção do Paciente pelo id informado
     public void deletePaciente(Long id) {
         var p = this.pacienteRepository.findById(id).orElseThrow(() -> new ExceptionCustomError("Paciente informado não encontrado",404));
-
         this.pacienteRepository.delete(p);
-
     }
+
+    // Faz deleção pelo CPF do paciente
+    public void deletePacientePorCpf(String cpf){
+        var paciente = this.pacienteRepository.findByCpfPaciente(cpf).orElseThrow(() -> new ExceptionCustomError("Não foi encontrado nenhum paciente com o CPF informado", 404));
+    }
+
 }
