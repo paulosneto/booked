@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -52,7 +53,7 @@ public class PacienteController {
                 @ApiResponse(responseCode = "404", description = "Patient not found")
             })
     @GetMapping("/{cpf}")
-    public ResponseEntity<Paciente> findByIdPaciente(@PathVariable("cpf") String cpf) {
+    public ResponseEntity<Optional<Paciente>> findByIdPaciente(@PathVariable("cpf") String cpf) {
        //var paciente = this.service.findById(id);
         var paciente = this.service.findByCpfPaciente(cpf);
 
