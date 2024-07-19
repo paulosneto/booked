@@ -4,10 +4,12 @@ import com.agenda.book.domains.Paciente;
 import com.agenda.book.dtos.PacienteDTO;
 import com.agenda.book.exceptions.ExceptionCustomError;
 import com.agenda.book.exceptions.ExceptionHandlerCustom;
+import com.agenda.book.exceptions.ProblemDetailsClass;
 import com.agenda.book.repositories.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -65,8 +67,15 @@ public class PacienteService {
 
 
     // Faz busca ao paciente por CPF
-    public Paciente findByCpfPaciente(String cpf){
-        var paciente = this.pacienteRepository.findByCpfPaciente(cpf).orElseThrow(() -> new ExceptionCustomError("Paciente não encontrado", 404));
+    public Optional<Paciente> findByCpfPaciente(String cpf){
+        //var paciente = this.pacienteRepository.findByCpfPaciente(cpf).orElseThrow(() -> new ExceptionCustomError("Paciente não encontrado", 404));
+        var paciente = this.pacienteRepository.findByCpfPaciente(cpf);
+
+        if(!paciente.isPresent()){
+            //throw new ExceptionCustomError("Paciente não encontrado", 404);
+            throw new ProblemDetailsClass("paciente nao encontrado", 403);
+        }
+        //var paciente1 = this.pacienteRepository.findByCpfPaciente(cpf).orElseThrow(() -> new ProblemDetailsClass());
         return paciente;
     }
 
