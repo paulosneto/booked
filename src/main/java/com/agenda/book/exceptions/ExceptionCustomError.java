@@ -2,23 +2,15 @@ package com.agenda.book.exceptions;
 
 import org.springframework.http.ProblemDetail;
 
-public class ExceptionCustomError extends ProblemDetailsClass  {
+// Classe que fará o a montagem da mensagem e do status
+// de erro para ser devolvida na requisição
+public class ExceptionCustomError extends RuntimeException  {
 
-    private final String detail;
-    private final int status;
+     final String message;
+     final int status;
 
-    public ExceptionCustomError(String detail, int status) {
-        super(detail,status);
-        this.detail = detail;
+    public ExceptionCustomError(String message, int status) {
+        this.message = message;
         this.status = status;
     }
-
-    /*@Override
-    public ProblemDetail errorProblemDetail(String detail, int status) {
-        var pd = ProblemDetail.forStatus(this.status);
-        pd.setTitle("ERROR");
-        pd.setDetail(this.detail);
-
-        return pd;
-    }*/
 }
