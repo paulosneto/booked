@@ -35,10 +35,9 @@ public class PacienteService {
 
         // Faz uma busca no banco para saber se o usuario existe
        var buscaId = this.pacienteRepository.findByCpfPaciente(p.getCpfPaciente());
-       //if(buscaId != null && buscaId.getCpfPaciente().equals(dto.cpfPaciente())){
+
        if(buscaId.isPresent()){
            // Se o paciente existir retorna erro de procacemento
-           //throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
            throw new ExceptionCustomError("Já existe um cadastro com esse CPF", 422);
        }else{
             // Caso nao exista faz o insert no banco
@@ -51,7 +50,6 @@ public class PacienteService {
     public List<Paciente> listPaciente(){
 
         LocalDateTime lt = LocalDateTime.now();
-
         return this.pacienteRepository.findAll();
     }
 
@@ -67,15 +65,15 @@ public class PacienteService {
 
 
     // Faz busca ao paciente por CPF
-    public Optional<Paciente> findByCpfPaciente(String cpf){
-        //var paciente = this.pacienteRepository.findByCpfPaciente(cpf).orElseThrow(() -> new ExceptionCustomError("Paciente não encontrado", 404));
-        var paciente = this.pacienteRepository.findByCpfPaciente(cpf);
+    public Paciente findByCpfPaciente(String cpf){
+        var paciente = this.pacienteRepository.findByCpfPaciente(cpf).orElseThrow(() -> new ExceptionCustomError("Paciente não encontrado", 404));
+        //var paciente = this.pacienteRepository.findByCpfPaciente(cpf);
 
-        if(!paciente.isPresent()){
-            //throw new ExceptionCustomError("Paciente não encontrado", 404);
-            throw new ProblemDetailsClass("paciente nao encontrado", 403);
-        }
-        //var paciente1 = this.pacienteRepository.findByCpfPaciente(cpf).orElseThrow(() -> new ProblemDetailsClass());
+        //if(!paciente.isPresent()){
+        //    throw new ExceptionCustomError("Paciente não encontrado.", 404);
+            //throw new ProblemDetailsClass("paciente nao encontrado", 403);
+        //}
+
         return paciente;
     }
 
@@ -101,7 +99,6 @@ public class PacienteService {
         return paciente;
     }
 
-
     // Faz deleção do Paciente pelo id informado
     public void deletePaciente(Long id) {
         var p = this.pacienteRepository.findById(id).orElseThrow(() -> new ExceptionCustomError("Paciente informado não encontrado",404));
@@ -111,6 +108,7 @@ public class PacienteService {
     // Faz deleção pelo CPF do paciente
     public void deletePacientePorCpf(String cpf){
         var paciente = this.pacienteRepository.findByCpfPaciente(cpf).orElseThrow(() -> new ExceptionCustomError("Não foi encontrado nenhum paciente com o CPF informado", 404));
+        this.pacienteRepository.delete(paciente);
     }
 
 }
