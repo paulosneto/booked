@@ -53,7 +53,7 @@ public class PacienteController {
                 @ApiResponse(responseCode = "404", description = "Patient not found")
             })
     @GetMapping("/{cpf}")
-    public ResponseEntity<Optional<Paciente>> findByIdPaciente(@PathVariable("cpf") String cpf) {
+    public ResponseEntity<Paciente> findByIdPaciente(@PathVariable("cpf") String cpf) {
        //var paciente = this.service.findById(id);
         var paciente = this.service.findByCpfPaciente(cpf);
 
