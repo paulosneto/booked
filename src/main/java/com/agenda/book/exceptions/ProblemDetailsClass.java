@@ -13,17 +13,4 @@ public class ProblemDetailsClass extends  RuntimeException{
         this.status = status;
 
         }
-
-    /*public ProblemDetail errorProblemDetail(String message, int statusCode){
-        //var pb = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-        var pb = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY);
-
-        //pb.setDetail("Server internal error.");
-        //pb.setTitle("Server internal error.");
-        //pb.setStatus(500);
-        pb.setTitle(message);
-        pb.setStatus(statusCode);
-
-        return pb;
-    }*/
 }
