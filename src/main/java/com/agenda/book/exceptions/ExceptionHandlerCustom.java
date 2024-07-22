@@ -12,8 +12,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class ExceptionHandlerCustom extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ProblemDetailsClass.class)
-    public ProblemDetail falha(ProblemDetailsClass e){
+    @ExceptionHandler(ExceptionCustomError.class)
+    public ProblemDetail falha(ExceptionCustomError e){
         ProblemDetail pb = ProblemDetail.forStatus(e.status);
         pb.setDetail(e.message);
 
